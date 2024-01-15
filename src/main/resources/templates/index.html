@@ -33,7 +33,7 @@
 
             <div class="collapse" id="toDeakvar">
                 <div class="card card-body">
-                    <div th:replace="fragments::table(${busRoutesToCity})"></div>
+                    <div th:replace="~{fragments::table(${busRoutesToCity})}"></div>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
 
             <div class="collapse" id="toCity">
                 <div class="card card-body">
-                    <div th:replace="fragments::table(${busRoutesToCity})"></div>
+                    <div th:replace="~{fragments::table(${busRoutesToCity})}"></div>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
 
             <div class="collapse" id="toVac">
                 <div class="card card-body">
-                    <div th:replace="fragments::table(${trainRoutesToVac})"></div>
+                    <div th:replace="~{fragments::table(${trainRoutesToVac})}"></div>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
 
             <div class="collapse" id="toBudapest">
                 <div class="card card-body">
-                    <div th:replace="fragments::table(${trainRoutesToBudapest})"></div>
+                    <div th:replace="~{fragments::table(${trainRoutesToBudapest})}"></div>
                 </div>
             </div>
         </div>

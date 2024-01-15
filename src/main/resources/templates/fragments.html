@@ -16,8 +16,8 @@
         </thead>
         <tbody>
         <tr th:each="route: ${routes}">
-            <td th:text="${#dates.format(route.start, 'HH:mm')}" th:class="${route.start.before(#dates.createNow()) ? 'future-time' : 'past-time'}">/>
-            <td th:text="${#dates.format(route.arrival, 'HH:mm')}"/>
+            <td th:text="${#dates.format(route.departTime, 'HH:mm')}" th:class="${route.departTime.before(#dates.createNow()) ? 'future-time' : 'past-time'}">/>
+            <td th:text="${#dates.format(route.arrivalTime, 'HH:mm')}"/>
             <td th:text="${route.from}"/>
             <td th:text="${route.to}"/>
         </tr>
