@@ -1,4 +1,4 @@
-package hu.pp.schedule.model;
+package hu.pp.schedule.model.bus;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

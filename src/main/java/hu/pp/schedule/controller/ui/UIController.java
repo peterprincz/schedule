@@ -1,6 +1,7 @@
 package hu.pp.schedule.controller.ui;
 
 import hu.pp.schedule.enums.BusStation;
+import hu.pp.schedule.enums.TrainStation;
 import hu.pp.schedule.service.DataRefreshJob;
 import hu.pp.schedule.service.RouteService;
 import lombok.AllArgsConstructor;
@@ -24,14 +25,21 @@ public class UIController {
 
     @RequestMapping("/")
     public String hello(Model model) {
-        model.addAttribute("routesTo",
+        model.addAttribute("busRoutesTo",
                 routeService.listRoutes(List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT),
                 BusStation.AUTOBUSZ_ALLOMAS)
         );
-        model.addAttribute("routesFrom",
+        model.addAttribute("busRoutesFrom",
                 routeService.listRoutes(BusStation.AUTOBUSZ_ALLOMAS,
                 List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT))
         );
+        model.addAttribute("trainRoutesTo",
+                routeService.listRoutes(TrainStation.VAC, TrainStation.NYUGATI)
+        );
+        model.addAttribute("trainRoutesFrom",
+                routeService.listRoutes(TrainStation.NYUGATI, TrainStation.VAC)
+        );
+
         model.addAttribute("cacheTime", refreshJob.getNextCacheEvictionTime());
         return "index";
     }

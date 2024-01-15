@@ -2,6 +2,7 @@ package hu.pp.schedule.service;
 
 import hu.pp.schedule.entity.Route;
 import hu.pp.schedule.enums.BusStation;
+import hu.pp.schedule.enums.TrainStation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
@@ -18,15 +19,17 @@ public class RouteService {
 
     private static final Logger LOG = LoggerFactory.getLogger(RouteService.class);
 
-    private BusRouteScrapingService scrapingService;
+    private BusRouteScrapingService busScrapingService;
+    private TrainRouteScrapingService trainScrapingService;
 
-    public RouteService(BusRouteScrapingService scrapingService) {
-        this.scrapingService = scrapingService;
+    public RouteService(BusRouteScrapingService busScrapingService, TrainRouteScrapingService trainScrapingService) {
+        this.busScrapingService = busScrapingService;
+        this.trainScrapingService = trainScrapingService;
     }
 
     @Cacheable(value = "externalData")
     public List<Route> listRoutes(List<BusStation> fromList, BusStation to) {
-        return fromList.stream().map(from -> scrapingService.getRoutes(new Date(), from, to))
+        return fromList.stream().map(from -> busScrapingService.getRoutes(new Date(), from, to))
                 .flatMap(Collection::stream)
                 .sorted(Comparator.comparing(Route::getArrival))
                 .toList();
@@ -34,8 +37,16 @@ public class RouteService {
 
     @Cacheable(value = "externalData")
     public List<Route> listRoutes(BusStation from, List<BusStation> toList) {
-        return toList.stream().map(to -> scrapingService.getRoutes(new Date(), from, to))
+        return toList.stream().map(to -> busScrapingService.getRoutes(new Date(), from, to))
                 .flatMap(Collection::stream)
+                .sorted(Comparator.comparing(Route::getArrival))
+                .toList();
+    }
+
+    @Cacheable(value = "externalData")
+    public List<Route> listRoutes(TrainStation from, TrainStation to) {
+        return trainScrapingService.getRoutes(new Date(), from, to)
+                .stream()
                 .sorted(Comparator.comparing(Route::getArrival))
                 .toList();
     }

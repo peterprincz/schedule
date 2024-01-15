@@ -38,7 +38,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="route: ${routesFrom}">
+                <tr th:each="route: ${busRoutesFrom}">
                     <td th:text="${#dates.hour(route.start)} + ':' + ${#dates.minute(route.start)}"/>
                     <td th:text="${#dates.hour(route.arrival)} + ':' + ${#dates.minute(route.arrival)}"/>
                     <td th:text="${route.from}"/>
@@ -60,7 +60,53 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="route: ${routesTo}">
+                <tr th:each="route: ${busRoutesTo}">
+                    <td th:text="${#dates.hour(route.start)} + ':' + ${#dates.minute(route.start)}"/>
+                    <td th:text="${#dates.hour(route.arrival)} + ':' + ${#dates.minute(route.arrival)}"/>
+                    <td th:text="${route.from}"/>
+                    <td th:text="${route.to}"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-6">
+            <h2 class="table-title">FROM Vonat</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Start</th>
+                    <th scope="col">Arrival</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="route: ${trainRoutesFrom}">
+                    <td th:text="${#dates.hour(route.start)} + ':' + ${#dates.minute(route.start)}"/>
+                    <td th:text="${#dates.hour(route.arrival)} + ':' + ${#dates.minute(route.arrival)}"/>
+                    <td th:text="${route.from}"/>
+                    <td th:text="${route.to}"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12 col-lg-6">
+            <h2 class="table-title">TO vonat</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Start</th>
+                    <th scope="col">Arrival</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="route: ${trainRoutesTo}">
                     <td th:text="${#dates.hour(route.start)} + ':' + ${#dates.minute(route.start)}"/>
                     <td th:text="${#dates.hour(route.arrival)} + ':' + ${#dates.minute(route.arrival)}"/>
                     <td th:text="${route.from}"/>
