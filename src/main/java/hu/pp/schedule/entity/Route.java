@@ -4,7 +4,6 @@ import hu.pp.schedule.enums.TransferType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -16,6 +15,6 @@ public class Route {
     private TransferType transferType;
     private String from;
     private String to;
-    private Date start;
-    private Date arrival;
+    private Date departTime;
+    private Date arrivalTime;
 }

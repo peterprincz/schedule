@@ -10,7 +10,7 @@ public class TrainRouteResponse {
 
 
     @JsonProperty("timetable")
-    private List<TimetableEntry> timetable;
+    private List<TrainRouteResponseTimetable> timetable;
 
     @JsonProperty("date")
     private String date;

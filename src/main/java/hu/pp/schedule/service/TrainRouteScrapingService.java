@@ -14,6 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static hu.pp.schedule.util.TimeUtils.timeStringToDate;
+
 @Service
 public class TrainRouteScrapingService {
 
@@ -22,7 +24,7 @@ public class TrainRouteScrapingService {
     private static final String URL_PATTERN = "https://apiv2.oroszi.net/elvira?from=${FROM}&to=${TO}";
 
     public List<Route> getRoutes(Date day, TrainStation from, TrainStation to) {
-        LOG.info("Getting routes for day: {}, from: {}, to: {}", day, from, to);
+        LOG.info("Getting train routes for day: {}, from: {}, to: {}", day, from, to);
         RestTemplate restTemplate = new RestTemplate();
         String url = URL_PATTERN.replace("${FROM}", from.getValue()).replace("${TO}", to.getValue());
         ResponseEntity<TrainRouteResponse> response = restTemplate.getForEntity(url, TrainRouteResponse.class);
@@ -40,16 +42,6 @@ public class TrainRouteScrapingService {
                 .toList();
         LOG.info("Successfully received routes for day: {}, from: {}, to: {} ({}) ", day, from, to, result.size());
         return result;
-    }
-
-    private Date timeStringToDate(Date day, String time) {
-        Calendar date = Calendar.getInstance();
-        date.setTime(day);
-        date.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.substring(0, 2)));
-        date.set(Calendar.MINUTE, Integer.parseInt(time.substring(3, 5)));
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
-        return date.getTime();
     }
 
 }

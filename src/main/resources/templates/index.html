@@ -8,112 +8,80 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Schedule</title>
-    <style>
-        body {
-            background-color: #1c1c1c;
-        }
-        .table-title, .cache-time {
-            text-align: center;
-            color:white;
-        }
-    </style>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+
 </head>
 <body>
 <div class="container">
+
     <div class="row">
         <div class="col-12">
-            <p class="cache-time" th:text="'Következő frissités' + ${#dates.hour(cacheTime)} + ':' + ${#dates.minute(cacheTime)}"></p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-lg-6">
-            <h2 class="table-title">FROM autóbusz-állomás</h2>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Start</th>
-                    <th scope="col">Arrival</th>
-                    <th scope="col">From</th>
-                    <th scope="col">To</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="route: ${busRoutesFrom}">
-                    <td th:text="${#dates.hour(route.start)} + ':' + ${#dates.minute(route.start)}"/>
-                    <td th:text="${#dates.hour(route.arrival)} + ':' + ${#dates.minute(route.arrival)}"/>
-                    <td th:text="${route.from}"/>
-                    <td th:text="${route.to}"/>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="col-md-12 col-lg-6">
-            <h2 class="table-title">TO autóbusz-állomás</h2>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Start</th>
-                    <th scope="col">Arrival</th>
-                    <th scope="col">From</th>
-                    <th scope="col">To</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="route: ${busRoutesTo}">
-                    <td th:text="${#dates.hour(route.start)} + ':' + ${#dates.minute(route.start)}"/>
-                    <td th:text="${#dates.hour(route.arrival)} + ':' + ${#dates.minute(route.arrival)}"/>
-                    <td th:text="${route.from}"/>
-                    <td th:text="${route.to}"/>
-                </tr>
-                </tbody>
-            </table>
+            <p class="cache-time"
+               th:text="'Következő frissités' + ${#dates.format(nextCacheTime, 'HH:mm')}"></p>
         </div>
     </div>
 
+
     <div class="row">
-        <div class="col-md-12 col-lg-6">
-            <h2 class="table-title">FROM Vonat</h2>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Start</th>
-                    <th scope="col">Arrival</th>
-                    <th scope="col">From</th>
-                    <th scope="col">To</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="route: ${trainRoutesFrom}">
-                    <td th:text="${#dates.hour(route.start)} + ':' + ${#dates.minute(route.start)}"/>
-                    <td th:text="${#dates.hour(route.arrival)} + ':' + ${#dates.minute(route.arrival)}"/>
-                    <td th:text="${route.from}"/>
-                    <td th:text="${route.to}"/>
-                </tr>
-                </tbody>
-            </table>
+
+        <div class="col-md-12 col-lg-6 btn-container">
+            <a class="btn btn-primary dropdown-button" data-bs-toggle="collapse" href="#toDeakvar" role="button"
+               aria-expanded="false"
+               aria-controls="collapseExample">
+                Busz Város -> Deákvár
+            </a>
+
+            <div class="collapse" id="toDeakvar">
+                <div class="card card-body">
+                    <div th:replace="fragments::table(${busRoutesToCity})"></div>
+                </div>
+            </div>
         </div>
 
-        <div class="col-md-12 col-lg-6">
-            <h2 class="table-title">TO vonat</h2>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Start</th>
-                    <th scope="col">Arrival</th>
-                    <th scope="col">From</th>
-                    <th scope="col">To</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="route: ${trainRoutesTo}">
-                    <td th:text="${#dates.hour(route.start)} + ':' + ${#dates.minute(route.start)}"/>
-                    <td th:text="${#dates.hour(route.arrival)} + ':' + ${#dates.minute(route.arrival)}"/>
-                    <td th:text="${route.from}"/>
-                    <td th:text="${route.to}"/>
-                </tr>
-                </tbody>
-            </table>
+        <div class="col-md-12 col-lg-6 btn-container">
+            <a class="btn btn-primary dropdown-button" data-bs-toggle="collapse" href="#toCity" role="button"
+               aria-expanded="false"
+               aria-controls="collapseExample">
+                Busz Deákvár -> Vác
+            </a>
+
+            <div class="collapse" id="toCity">
+                <div class="card card-body">
+                    <div th:replace="fragments::table(${busRoutesToCity})"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-md-12 col-lg-6 btn-container">
+            <a class="btn btn-success dropdown-button" data-bs-toggle="collapse" href="#toVac" role="button"
+               aria-expanded="false"
+               aria-controls="collapseExample">
+                Vonat Nyugati -> Vác
+            </a>
+
+            <div class="collapse" id="toVac">
+                <div class="card card-body">
+                    <div th:replace="fragments::table(${trainRoutesToVac})"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 col-lg-6 btn-container">
+            <a class="btn btn-success dropdown-button" data-bs-toggle="collapse" href="#toBudapest" role="button"
+               aria-expanded="false"
+               aria-controls="collapseExample">
+                Vonat Vác -> Nyugati
+            </a>
+
+            <div class="collapse" id="toBudapest">
+                <div class="card card-body">
+                    <div th:replace="fragments::table(${trainRoutesToBudapest})"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

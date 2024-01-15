@@ -1,0 +1,28 @@
+body {
+    background-color: #1c1c1c;
+}
+
+.table-wrapper {
+    height: 60vh;
+    overflow-y: auto;
+}
+
+.cache-time {
+    text-align: center;
+    color: white;
+}
+
+.dropdown-button {
+    width: 20em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+.btn-container {
+    text-align: center;
+}
+.past-time {
+    color:red !important;
+}
+.future-time {
+    color:blue !important;
+}

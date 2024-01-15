@@ -16,6 +16,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
+import static hu.pp.schedule.util.TimeUtils.timeStringToDate;
+
 @Service
 public class BusRouteScrapingService {
 
@@ -24,7 +26,7 @@ public class BusRouteScrapingService {
     private static final String URL = "https://menetrendek.hu/menetrend/newinterface/index.php";
 
     public List<Route> getRoutes(Date day, BusStation from, BusStation to) {
-        LOG.info("Getting routes for day: {}, from: {}, to: {}", day, from, to);
+        LOG.info("Getting bus routes for day: {}, from: {}, to: {}", day, from, to);
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -44,15 +46,5 @@ public class BusRouteScrapingService {
                 .toList();
         LOG.info("Successfully received routes for day: {}, from: {}, to: {} ({}) ", day, from, to, result.size());
         return result;
-    }
-
-    private Date timeStringToDate(Date day, String time) {
-        Calendar date = Calendar.getInstance();
-        date.setTime(day);
-        date.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.substring(0, 2)));
-        date.set(Calendar.MINUTE, Integer.parseInt(time.substring(3, 5)));
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
-        return date.getTime();
     }
 }

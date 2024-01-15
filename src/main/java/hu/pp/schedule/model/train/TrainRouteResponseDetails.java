@@ -8,7 +8,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class TimetableDetails {
+public class TrainRouteResponseDetails {
 
     @JsonProperty("from")
     private String from;
@@ -23,10 +23,10 @@ public class TimetableDetails {
     private String platform;
 
     @JsonProperty("train_info")
-    private TrainInfo trainInfo;
+    private TrainRouteResponseInfo trainRouteResponseInfo;
 
     @JsonProperty("services")
-    private List<Service> services;
+    private List<TrainRouteResponseService> trainRouteResponseServices;
 
     @JsonProperty("original_way")
     private List<String> originalWay;

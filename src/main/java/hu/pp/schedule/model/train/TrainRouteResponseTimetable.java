@@ -8,7 +8,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class TimetableEntry {
+public class TrainRouteResponseTimetable {
 
     @JsonProperty("type")
     private String type;
@@ -47,6 +47,6 @@ public class TimetableEntry {
     private String className;
 
     @JsonProperty("details")
-    private List<TimetableDetails> details;
+    private List<TrainRouteResponseDetails> details;
 
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div th:fragment="table (routes)" class="table-wrapper">
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Start</th>
+            <th scope="col">Arrival</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="route: ${routes}">
+            <td th:text="${#dates.format(route.start, 'HH:mm')}" th:class="${route.start.before(#dates.createNow()) ? 'future-time' : 'past-time'}">/>
+            <td th:text="${#dates.format(route.arrival, 'HH:mm')}"/>
+            <td th:text="${route.from}"/>
+            <td th:text="${route.to}"/>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+

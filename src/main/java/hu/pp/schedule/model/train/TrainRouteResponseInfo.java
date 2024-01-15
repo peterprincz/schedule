@@ -6,7 +6,7 @@ import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class TrainInfo {
+public class TrainRouteResponseInfo {
 
     @JsonProperty("href")
     private String href;

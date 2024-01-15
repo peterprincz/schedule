@@ -6,7 +6,7 @@ import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-class Service {
+class TrainRouteResponseService {
 
     @JsonProperty("icon")
     private String icon;

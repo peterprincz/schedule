@@ -31,7 +31,7 @@ public class RouteService {
     public List<Route> listRoutes(List<BusStation> fromList, BusStation to) {
         return fromList.stream().map(from -> busScrapingService.getRoutes(new Date(), from, to))
                 .flatMap(Collection::stream)
-                .sorted(Comparator.comparing(Route::getArrival))
+                .sorted(Comparator.comparing(Route::getDepartTime))
                 .toList();
     }
 
@@ -39,7 +39,7 @@ public class RouteService {
     public List<Route> listRoutes(BusStation from, List<BusStation> toList) {
         return toList.stream().map(to -> busScrapingService.getRoutes(new Date(), from, to))
                 .flatMap(Collection::stream)
-                .sorted(Comparator.comparing(Route::getArrival))
+                .sorted(Comparator.comparing(Route::getDepartTime))
                 .toList();
     }
 
@@ -47,7 +47,7 @@ public class RouteService {
     public List<Route> listRoutes(TrainStation from, TrainStation to) {
         return trainScrapingService.getRoutes(new Date(), from, to)
                 .stream()
-                .sorted(Comparator.comparing(Route::getArrival))
+                .sorted(Comparator.comparing(Route::getDepartTime))
                 .toList();
     }
 

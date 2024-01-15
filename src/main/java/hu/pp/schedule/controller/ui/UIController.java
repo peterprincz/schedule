@@ -25,22 +25,22 @@ public class UIController {
 
     @RequestMapping("/")
     public String hello(Model model) {
-        model.addAttribute("busRoutesTo",
+        model.addAttribute("busRoutesToCity",
                 routeService.listRoutes(List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT),
                 BusStation.AUTOBUSZ_ALLOMAS)
         );
-        model.addAttribute("busRoutesFrom",
+        model.addAttribute("busRoutesToCity",
                 routeService.listRoutes(BusStation.AUTOBUSZ_ALLOMAS,
                 List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT))
         );
-        model.addAttribute("trainRoutesTo",
+        model.addAttribute("trainRoutesToBudapest",
                 routeService.listRoutes(TrainStation.VAC, TrainStation.NYUGATI)
         );
-        model.addAttribute("trainRoutesFrom",
+        model.addAttribute("trainRoutesToVac",
                 routeService.listRoutes(TrainStation.NYUGATI, TrainStation.VAC)
         );
 
-        model.addAttribute("cacheTime", refreshJob.getNextCacheEvictionTime());
+        model.addAttribute("nextCacheTime", refreshJob.getNextCacheEvictionTime());
         return "index";
     }
 }

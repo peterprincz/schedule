@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @SpringBootTest()
-public class BusRouteScrapingServiceTests {
+public class BusRouteScrapingTrainRouteResponseServiceTests {
 
     @Autowired
     BusRouteScrapingService scrapingService;

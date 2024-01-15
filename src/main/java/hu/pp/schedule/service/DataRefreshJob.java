@@ -1,6 +1,7 @@
 package hu.pp.schedule.service;
 
 import hu.pp.schedule.enums.BusStation;
+import hu.pp.schedule.enums.TrainStation;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -29,6 +30,8 @@ public class DataRefreshJob {
         routeService.evictCache();
         routeService.listRoutes(List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT), BusStation.AUTOBUSZ_ALLOMAS);
         routeService.listRoutes(BusStation.AUTOBUSZ_ALLOMAS, List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT));
+        routeService.listRoutes(TrainStation.NYUGATI, TrainStation.VAC);
+        routeService.listRoutes(TrainStation.VAC, TrainStation.NYUGATI);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.MILLISECOND, (int) HALF_HOUR);
