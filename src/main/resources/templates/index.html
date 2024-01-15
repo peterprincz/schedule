@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Schedule</title>
+    <style>
+        body {
+            background-color: #1c1c1c;
+        }
+        .table-title, .cache-time {
+            text-align: center;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <p class="cache-time" th:text="'Következő frissités' + ${#dates.hour(cacheTime)} + ':' + ${#dates.minute(cacheTime)}"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-6">
+            <h2 class="table-title">FROM autóbusz-állomás</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Start</th>
+                    <th scope="col">Arrival</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="route: ${routesFrom}">
+                    <td th:text="${#dates.hour(route.start)} + ':' + ${#dates.minute(route.start)}"/>
+                    <td th:text="${#dates.hour(route.arrival)} + ':' + ${#dates.minute(route.arrival)}"/>
+                    <td th:text="${route.from}"/>
+                    <td th:text="${route.to}"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12 col-lg-6">
+            <h2 class="table-title">TO autóbusz-állomás</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Start</th>
+                    <th scope="col">Arrival</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="route: ${routesTo}">
+                    <td th:text="${#dates.hour(route.start)} + ':' + ${#dates.minute(route.start)}"/>
+                    <td th:text="${#dates.hour(route.arrival)} + ':' + ${#dates.minute(route.arrival)}"/>
+                    <td th:text="${route.from}"/>
+                    <td th:text="${route.to}"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
