@@ -21,7 +21,8 @@ public class UIController {
     private RouteService routeService;
     private DataRefreshJob refreshJob;
 
-    @RequestMapping("/index")
+
+    @RequestMapping("/")
     public String hello(Model model) {
         model.addAttribute("routesTo",
                 routeService.listRoutes(List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT),
@@ -34,11 +35,4 @@ public class UIController {
         model.addAttribute("cacheTime", refreshJob.getNextCacheEvictionTime());
         return "index";
     }
-
-    @RequestMapping(value = "/login")
-    public String login() {
-        LOG.info("login get called");
-        return "login";
-    }
-
 }

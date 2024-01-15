@@ -1,4 +1,4 @@
-FROM maven:3.5.2-jdk-8-alpine AS MAVEN_BUILD
+FROM maven:3.9-amazoncorretto-21-al2023 AS MAVEN_BUILD
 
 MAINTAINER Brian Hannaway
 
@@ -6,9 +6,9 @@ COPY pom.xml /build/
 COPY src /build/src/
 
 WORKDIR /build/
-RUN mvn package
+RUN mvn package -q
 
-FROM eclipse-temurin:17-jdk-alpine
+FROM amazoncorretto:21-alpine-jdk
 
 WORKDIR /app
 
