@@ -37,7 +37,7 @@ public class BusRouteRequest {
                                 .honnanLsId(from.getLsId())
                                 .honnanSettlementId(2493)
                                 .honnanSiteCode("2493F1")
-                                .hour("15")
+                                .hour("0")
                                 .hova(to.getValue())
                                 .hovaLsId(to.getLsId())
                                 .hovaSettlementId(2493)

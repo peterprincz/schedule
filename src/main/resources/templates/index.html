@@ -17,7 +17,9 @@
     <div class="row">
         <div class="col-12">
             <p class="cache-time"
-               th:text="'Következő frissités' + ${#dates.format(nextCacheTime, 'HH:mm')}"></p>
+               th:text="'Rendszer idő: ' + ${#dates.format(systemTime, 'MM.DD HH:mm')}"></p>
+            <p class="cache-time"
+               th:text="'Utolsó frissités: ' + ${#dates.format(lastCacheTime, 'MM.DD HH:mm')}"></p>
         </div>
     </div>
 
@@ -33,7 +35,7 @@
 
             <div class="collapse" id="toDeakvar">
                 <div class="card card-body">
-                    <div th:replace="~{fragments::table(${busRoutesToCity})}"></div>
+                    <div th:replace="~{fragments::table(${busRoutesToCity}, ${systemTime})}"></div>
                 </div>
             </div>
         </div>
@@ -47,7 +49,7 @@
 
             <div class="collapse" id="toCity">
                 <div class="card card-body">
-                    <div th:replace="~{fragments::table(${busRoutesToCity})}"></div>
+                    <div th:replace="~{fragments::table(${busRoutesToCity}, ${systemTime})}"></div>
                 </div>
             </div>
         </div>
@@ -65,7 +67,7 @@
 
             <div class="collapse" id="toVac">
                 <div class="card card-body">
-                    <div th:replace="~{fragments::table(${trainRoutesToVac})}"></div>
+                    <div th:replace="~{fragments::table(${trainRoutesToVac}, ${systemTime})}"></div>
                 </div>
             </div>
         </div>
@@ -79,7 +81,7 @@
 
             <div class="collapse" id="toBudapest">
                 <div class="card card-body">
-                    <div th:replace="~{fragments::table(${trainRoutesToBudapest})}"></div>
+                    <div th:replace="~{fragments::table(${trainRoutesToBudapest}, ${systemTime})}"></div>
                 </div>
             </div>
         </div>

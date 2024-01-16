@@ -1,1 +1,2 @@
 fly deploy
+flyctl logs

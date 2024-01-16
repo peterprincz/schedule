@@ -3,20 +3,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<div th:fragment="table (routes)" class="table-wrapper">
+<div th:fragment="table (routes, systemTime)" class="table-wrapper">
 
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">Start</th>
-            <th scope="col">Arrival</th>
-            <th scope="col">From</th>
-            <th scope="col">To</th>
+            <th scope="col">Indulás</th>
+            <th scope="col">Érkezés</th>
+            <th scope="col">Honnan</th>
+            <th scope="col">Hova</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="route: ${routes}">
-            <td th:text="${#dates.format(route.departTime, 'HH:mm')}" th:class="${route.departTime.before(#dates.createNow()) ? 'future-time' : 'past-time'}">/>
+            <td th:text="${#dates.format(route.departTime, 'MM.DD HH:mm')}" th:class="${route.departTime.before(systemTime) ? 'time-is-past' : 'time-is-future'}">/>
             <td th:text="${#dates.format(route.arrivalTime, 'HH:mm')}"/>
             <td th:text="${route.from}"/>
             <td th:text="${route.to}"/>

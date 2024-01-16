@@ -28,24 +28,24 @@ public class RouteService {
     }
 
     @Cacheable(value = "externalData")
-    public List<Route> listRoutes(List<BusStation> fromList, BusStation to) {
-        return fromList.stream().map(from -> busScrapingService.getRoutes(new Date(), from, to))
+    public List<Route> listRoutes(Date day, List<BusStation> fromList, BusStation to) {
+        return fromList.stream().map(from -> busScrapingService.getRoutes(day, from, to))
                 .flatMap(Collection::stream)
                 .sorted(Comparator.comparing(Route::getDepartTime))
                 .toList();
     }
 
     @Cacheable(value = "externalData")
-    public List<Route> listRoutes(BusStation from, List<BusStation> toList) {
-        return toList.stream().map(to -> busScrapingService.getRoutes(new Date(), from, to))
+    public List<Route> listRoutes(Date day, BusStation from, List<BusStation> toList) {
+        return toList.stream().map(to -> busScrapingService.getRoutes(day, from, to))
                 .flatMap(Collection::stream)
                 .sorted(Comparator.comparing(Route::getDepartTime))
                 .toList();
     }
 
     @Cacheable(value = "externalData")
-    public List<Route> listRoutes(TrainStation from, TrainStation to) {
-        return trainScrapingService.getRoutes(new Date(), from, to)
+    public List<Route> listRoutes(Date day, TrainStation from, TrainStation to) {
+        return trainScrapingService.getRoutes(day, from, to)
                 .stream()
                 .sorted(Comparator.comparing(Route::getDepartTime))
                 .toList();

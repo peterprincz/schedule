@@ -20,9 +20,9 @@ body {
 .btn-container {
     text-align: center;
 }
-.past-time {
+.time-is-past {
     color:red !important;
 }
-.future-time {
+.time-is-future {
     color:blue !important;
 }
