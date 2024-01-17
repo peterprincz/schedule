@@ -2,36 +2,33 @@ package hu.pp.schedule.service;
 
 import hu.pp.schedule.enums.BusStation;
 import hu.pp.schedule.enums.TrainStation;
-import hu.pp.schedule.util.TimeUtils;
+import hu.pp.schedule.util.TimeService;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 @Component
 public class DataRefreshJob {
 
-    private static final long HALF_HOUR =  60 * 30 * 1000;
+    private static final long HALF_HOUR = 60 * 30 * 1000;
+
+    private final RouteService routeService;
+    private final TimeService timeService;
 
     @Getter
     private LocalDateTime lastCacheEvictionTime;
 
-    private final RouteService routeService;
-
-    public DataRefreshJob(RouteService routeService) {
+    public DataRefreshJob(RouteService routeService, TimeService timeService) {
         this.routeService = routeService;
+        this.timeService = timeService;
     }
 
     @Scheduled(fixedRate = HALF_HOUR)
     public void refreshData() {
-        LocalDateTime now = TimeUtils.getCurrentETCTime();
+        LocalDateTime now = timeService.getTime();
         routeService.evictCache();
         routeService.listRoutes(now, List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT), BusStation.AUTOBUSZ_ALLOMAS);
         routeService.listRoutes(now, BusStation.AUTOBUSZ_ALLOMAS, List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT));

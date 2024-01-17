@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,8 +19,8 @@ public class RouteService {
 
     private static final Logger LOG = LoggerFactory.getLogger(RouteService.class);
 
-    private BusRouteScrapingService busScrapingService;
-    private TrainRouteScrapingService trainScrapingService;
+    private final BusRouteScrapingService busScrapingService;
+    private final TrainRouteScrapingService trainScrapingService;
 
     public RouteService(BusRouteScrapingService busScrapingService, TrainRouteScrapingService trainScrapingService) {
         this.busScrapingService = busScrapingService;

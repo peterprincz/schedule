@@ -4,32 +4,28 @@ import hu.pp.schedule.enums.BusStation;
 import hu.pp.schedule.enums.TrainStation;
 import hu.pp.schedule.service.DataRefreshJob;
 import hu.pp.schedule.service.RouteService;
-import hu.pp.schedule.util.TimeUtils;
+import hu.pp.schedule.util.TimeService;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class UIController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UIController.class);
-
     private RouteService routeService;
     private DataRefreshJob refreshJob;
-
+    private TimeService timeService;
 
     @RequestMapping("/")
     public String index(Model model) {
-        LocalDateTime now = TimeUtils.getCurrentETCTime();
+        LocalDateTime now = timeService.getTime();
         model.addAttribute("systemTime", now);
+        model.addAttribute("lastCacheTime", refreshJob.getLastCacheEvictionTime());
         model.addAttribute("busRoutesToCity",
                 routeService.listRoutes(now,
                         List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT),
@@ -45,10 +41,9 @@ public class UIController {
         model.addAttribute("trainRoutesToBudapest",
                 routeService.listRoutes(now, TrainStation.VAC, TrainStation.NYUGATI)
         );
-        model.addAttribute("trainRoutesToVac",
+        model.addAttribute("trainRoutesFromBudapest",
                 routeService.listRoutes(now, TrainStation.NYUGATI, TrainStation.VAC)
         );
-        model.addAttribute("lastCacheTime", refreshJob.getLastCacheEvictionTime());
         return "index";
     }
 }

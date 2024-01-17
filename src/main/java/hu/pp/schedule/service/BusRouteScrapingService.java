@@ -5,6 +5,8 @@ import hu.pp.schedule.enums.BusStation;
 import hu.pp.schedule.enums.TransferType;
 import hu.pp.schedule.model.bus.BusRouteRequest;
 import hu.pp.schedule.model.bus.BusRouteResponse;
+import hu.pp.schedule.util.TimeService;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -17,10 +19,11 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static hu.pp.schedule.util.TimeUtils.timeStringToDate;
-
 @Service
+@AllArgsConstructor
 public class BusRouteScrapingService {
+
+    private TimeService timeService;
 
     private static final Logger LOG = LoggerFactory.getLogger(BusRouteScrapingService.class);
 
@@ -41,8 +44,8 @@ public class BusRouteScrapingService {
                 .stream().map(match -> new Route(TransferType.BUS,
                         match.getDepartureStation(),
                         match.getArrivalStation(),
-                        timeStringToDate(day, match.getStartTime()),
-                        timeStringToDate(day, match.getArrivalTime())
+                        timeService.timeStringToDate(day, match.getStartTime()),
+                        timeService.timeStringToDate(day, match.getArrivalTime())
                 ))
                 .toList();
         LOG.info("Successfully received routes for day: {}, from: {}, to: {} ({}) ", day, from, to, result.size());
