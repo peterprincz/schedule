@@ -1,10 +1,9 @@
 package hu.pp.schedule.service;
 
-import hu.pp.schedule.entity.Route;
+import hu.pp.schedule.model.Route;
 import hu.pp.schedule.enums.TrainStation;
 import hu.pp.schedule.enums.TransferType;
 import hu.pp.schedule.model.train.TrainRouteResponse;
-import hu.pp.schedule.util.TimeService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +17,11 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class TrainRouteScrapingService {
+public class TrainCollectorService implements CollectorService<TrainStation> {
 
     private TimeService timeService;
 
-    private static final Logger LOG = LoggerFactory.getLogger(BusRouteScrapingService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BusCollectorService.class);
 
     private static final String URL_PATTERN = "https://apiv2.oroszi.net/elvira?from=${FROM}&to=${TO}";
 

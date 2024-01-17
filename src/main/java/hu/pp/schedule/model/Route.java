@@ -1,4 +1,4 @@
-package hu.pp.schedule.entity;
+package hu.pp.schedule.model;
 
 import hu.pp.schedule.enums.TransferType;
 import jakarta.persistence.*;

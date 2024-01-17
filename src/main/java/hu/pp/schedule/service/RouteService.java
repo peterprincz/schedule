@@ -1,35 +1,33 @@
 package hu.pp.schedule.service;
 
-import hu.pp.schedule.entity.Route;
-import hu.pp.schedule.enums.BusStation;
-import hu.pp.schedule.enums.TrainStation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
+
+import hu.pp.schedule.model.Route;
+import hu.pp.schedule.enums.BusStation;
+import hu.pp.schedule.enums.TrainStation;
+
 @Service
+@AllArgsConstructor
 public class RouteService {
 
     private static final Logger LOG = LoggerFactory.getLogger(RouteService.class);
 
-    private final BusRouteScrapingService busScrapingService;
-    private final TrainRouteScrapingService trainScrapingService;
-
-    public RouteService(BusRouteScrapingService busScrapingService, TrainRouteScrapingService trainScrapingService) {
-        this.busScrapingService = busScrapingService;
-        this.trainScrapingService = trainScrapingService;
-    }
+    private final CollectorService<BusStation> busRouteCollectorService;
+    private final CollectorService<TrainStation> trainRouteCollectorService;
 
     @Cacheable(value = "externalData")
     public List<Route> listRoutes(LocalDateTime day, List<BusStation> fromList, BusStation to) {
-        return fromList.stream().map(from -> busScrapingService.getRoutes(day, from, to))
+        return fromList.stream().map(from -> busRouteCollectorService.getRoutes(day, from, to))
                 .flatMap(Collection::stream)
                 .sorted(Comparator.comparing(Route::getDepartTime))
                 .toList();
@@ -37,7 +35,7 @@ public class RouteService {
 
     @Cacheable(value = "externalData")
     public List<Route> listRoutes(LocalDateTime day, BusStation from, List<BusStation> toList) {
-        return toList.stream().map(to -> busScrapingService.getRoutes(day, from, to))
+        return toList.stream().map(to -> busRouteCollectorService.getRoutes(day, from, to))
                 .flatMap(Collection::stream)
                 .sorted(Comparator.comparing(Route::getDepartTime))
                 .toList();
@@ -45,7 +43,7 @@ public class RouteService {
 
     @Cacheable(value = "externalData")
     public List<Route> listRoutes(LocalDateTime day, TrainStation from, TrainStation to) {
-        return trainScrapingService.getRoutes(day, from, to)
+        return trainRouteCollectorService.getRoutes(day, from, to)
                 .stream()
                 .sorted(Comparator.comparing(Route::getDepartTime))
                 .toList();

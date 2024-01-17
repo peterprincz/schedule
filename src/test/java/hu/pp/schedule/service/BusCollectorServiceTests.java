@@ -1,8 +1,7 @@
 package hu.pp.schedule.service;
 
-import hu.pp.schedule.entity.Route;
-import hu.pp.schedule.enums.TrainStation;
-import hu.pp.schedule.util.TimeService;
+import hu.pp.schedule.model.Route;
+import hu.pp.schedule.enums.BusStation;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,18 +11,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootTest()
-public class TrainRouteScrapingServiceTests {
+public class BusCollectorServiceTests {
 
     @Autowired
-    TrainRouteScrapingService scrapingService;
+    private BusCollectorService scrapingService;
 
     @Autowired
-    private TimeService timeService;
+    private ZonedTimeService timeService;
 
     @Test
     void busScrapeTest() {
         LocalDateTime now = timeService.getTime();
-        List<Route> routes = scrapingService.getRoutes(now, TrainStation.VAC, TrainStation.NYUGATI);
+        List<Route> routes = scrapingService.getRoutes(now, BusStation.ALTANYI_SZOLOK, BusStation.AUTOBUSZ_ALLOMAS);
         Assert.notEmpty(routes, "should have routes");
     }
 

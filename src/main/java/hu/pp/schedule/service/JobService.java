@@ -2,7 +2,6 @@ package hu.pp.schedule.service;
 
 import hu.pp.schedule.enums.BusStation;
 import hu.pp.schedule.enums.TrainStation;
-import hu.pp.schedule.util.TimeService;
 import lombok.Getter;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
-public class DataRefreshJob {
+public class JobService {
 
     private static final long HALF_HOUR = 60 * 30 * 1000;
 
@@ -21,7 +20,7 @@ public class DataRefreshJob {
     @Getter
     private LocalDateTime lastCacheEvictionTime;
 
-    public DataRefreshJob(RouteService routeService, TimeService timeService) {
+    public JobService(RouteService routeService, ZonedTimeService timeService) {
         this.routeService = routeService;
         this.timeService = timeService;
     }

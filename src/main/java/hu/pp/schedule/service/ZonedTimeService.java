@@ -1,4 +1,4 @@
-package hu.pp.schedule.util;
+package hu.pp.schedule.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 @Service
-public class TimeService {
+public class ZonedTimeService implements TimeService {
 
     @Value( "${application.timezone}" )
     private String timeZone;

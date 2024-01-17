@@ -1,10 +1,10 @@
-package hu.pp.schedule.controller.ui;
+package hu.pp.schedule.controller;
 
 import hu.pp.schedule.enums.BusStation;
 import hu.pp.schedule.enums.TrainStation;
-import hu.pp.schedule.service.DataRefreshJob;
+import hu.pp.schedule.service.JobService;
 import hu.pp.schedule.service.RouteService;
-import hu.pp.schedule.util.TimeService;
+import hu.pp.schedule.service.ZonedTimeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +15,11 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
-public class UIController {
+public class IndexController {
 
     private RouteService routeService;
-    private DataRefreshJob refreshJob;
-    private TimeService timeService;
+    private JobService refreshJob;
+    private ZonedTimeService timeService;
 
     @RequestMapping("/")
     public String index(Model model) {

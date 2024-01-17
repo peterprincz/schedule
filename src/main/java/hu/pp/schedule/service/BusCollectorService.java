@@ -1,11 +1,10 @@
 package hu.pp.schedule.service;
 
-import hu.pp.schedule.entity.Route;
+import hu.pp.schedule.model.Route;
 import hu.pp.schedule.enums.BusStation;
 import hu.pp.schedule.enums.TransferType;
 import hu.pp.schedule.model.bus.BusRouteRequest;
 import hu.pp.schedule.model.bus.BusRouteResponse;
-import hu.pp.schedule.util.TimeService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +20,11 @@ import java.util.*;
 
 @Service
 @AllArgsConstructor
-public class BusRouteScrapingService {
+public class BusCollectorService implements CollectorService<BusStation> {
 
     private TimeService timeService;
 
-    private static final Logger LOG = LoggerFactory.getLogger(BusRouteScrapingService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BusCollectorService.class);
 
     private static final String URL = "https://menetrendek.hu/menetrend/newinterface/index.php";
 
