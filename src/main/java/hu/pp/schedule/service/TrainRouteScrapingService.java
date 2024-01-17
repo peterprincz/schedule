@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,7 @@ public class TrainRouteScrapingService {
 
     private static final String URL_PATTERN = "https://apiv2.oroszi.net/elvira?from=${FROM}&to=${TO}";
 
-    public List<Route> getRoutes(Date day, TrainStation from, TrainStation to) {
+    public List<Route> getRoutes(LocalDateTime day, TrainStation from, TrainStation to) {
         LOG.info("Getting train routes for day: {}, from: {}, to: {}", day, from, to);
         RestTemplate restTemplate = new RestTemplate();
         String url = URL_PATTERN.replace("${FROM}", from.getValue()).replace("${TO}", to.getValue());

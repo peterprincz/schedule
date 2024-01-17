@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class UIController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        Date now = TimeUtils.getCurrentETCTime();
+        LocalDateTime now = TimeUtils.getCurrentETCTime();
         model.addAttribute("systemTime", now);
         model.addAttribute("busRoutesToCity",
                 routeService.listRoutes(now,
@@ -35,7 +36,7 @@ public class UIController {
                         BusStation.AUTOBUSZ_ALLOMAS
                 )
         );
-        model.addAttribute("busRoutesToCity",
+        model.addAttribute("busRoutesFromCity",
                 routeService.listRoutes(now,
                         BusStation.AUTOBUSZ_ALLOMAS,
                         List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT)

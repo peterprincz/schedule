@@ -16,8 +16,8 @@
         </thead>
         <tbody>
         <tr th:each="route: ${routes}">
-            <td th:text="${#dates.format(route.departTime, 'MM.DD HH:mm')}" th:class="${route.departTime.before(systemTime) ? 'time-is-past' : 'time-is-future'}">/>
-            <td th:text="${#dates.format(route.arrivalTime, 'HH:mm')}"/>
+            <td th:text="${#temporals.format(route.departTime, 'MM.DD HH:mm')}" th:class="${route.departTime.isBefore(systemTime) ? 'time-is-past' : 'time-is-future'}">/>
+            <td th:text="${#temporals.format(route.arrivalTime, 'HH:mm')}"/>
             <td th:text="${route.from}"/>
             <td th:text="${route.to}"/>
         </tr>

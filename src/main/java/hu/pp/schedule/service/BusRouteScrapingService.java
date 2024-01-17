@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static hu.pp.schedule.util.TimeUtils.timeStringToDate;
@@ -25,7 +26,7 @@ public class BusRouteScrapingService {
 
     private static final String URL = "https://menetrendek.hu/menetrend/newinterface/index.php";
 
-    public List<Route> getRoutes(Date day, BusStation from, BusStation to) {
+    public List<Route> getRoutes(LocalDateTime day, BusStation from, BusStation to) {
         LOG.info("Getting bus routes for day: {}, from: {}, to: {}", day, from, to);
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();

@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -21,15 +23,14 @@ public class BusRouteRequest {
     private String func;
     private Params params;
 
-    public static BusRouteRequest create(Date day, BusStation from, BusStation to) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+    public static BusRouteRequest create(LocalDateTime day, BusStation from, BusStation to) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return BusRouteRequest.builder()
                 .func("getRoutes")
                 .params(
                         Params.builder()
                                 .networks(List.of(1, 2, 3, 10, 11, 12, 13, 14, 24, 25, 26))
-                                .datum(sdf.format(day))
+                                .datum(dateTimeFormatter.format(day))
                                 .erkStype("megallo")
                                 .extSettings("block")
                                 .helyi("No")

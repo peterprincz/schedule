@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
@@ -28,7 +29,7 @@ public class RouteService {
     }
 
     @Cacheable(value = "externalData")
-    public List<Route> listRoutes(Date day, List<BusStation> fromList, BusStation to) {
+    public List<Route> listRoutes(LocalDateTime day, List<BusStation> fromList, BusStation to) {
         return fromList.stream().map(from -> busScrapingService.getRoutes(day, from, to))
                 .flatMap(Collection::stream)
                 .sorted(Comparator.comparing(Route::getDepartTime))
@@ -36,7 +37,7 @@ public class RouteService {
     }
 
     @Cacheable(value = "externalData")
-    public List<Route> listRoutes(Date day, BusStation from, List<BusStation> toList) {
+    public List<Route> listRoutes(LocalDateTime day, BusStation from, List<BusStation> toList) {
         return toList.stream().map(to -> busScrapingService.getRoutes(day, from, to))
                 .flatMap(Collection::stream)
                 .sorted(Comparator.comparing(Route::getDepartTime))
@@ -44,7 +45,7 @@ public class RouteService {
     }
 
     @Cacheable(value = "externalData")
-    public List<Route> listRoutes(Date day, TrainStation from, TrainStation to) {
+    public List<Route> listRoutes(LocalDateTime day, TrainStation from, TrainStation to) {
         return trainScrapingService.getRoutes(day, from, to)
                 .stream()
                 .sorted(Comparator.comparing(Route::getDepartTime))

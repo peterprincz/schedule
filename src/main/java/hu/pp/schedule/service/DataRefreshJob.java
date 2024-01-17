@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +21,7 @@ public class DataRefreshJob {
     private static final long HALF_HOUR =  60 * 30 * 1000;
 
     @Getter
-    private Date lastCacheEvictionTime;
+    private LocalDateTime lastCacheEvictionTime;
 
     private final RouteService routeService;
 
@@ -30,7 +31,7 @@ public class DataRefreshJob {
 
     @Scheduled(fixedRate = HALF_HOUR)
     public void refreshData() {
-        Date now = TimeUtils.getCurrentETCTime();
+        LocalDateTime now = TimeUtils.getCurrentETCTime();
         routeService.evictCache();
         routeService.listRoutes(now, List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT), BusStation.AUTOBUSZ_ALLOMAS);
         routeService.listRoutes(now, BusStation.AUTOBUSZ_ALLOMAS, List.of(BusStation.ALTANYI_SZOLOK, BusStation.DEAKVARI_FOUT));

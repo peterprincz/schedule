@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -15,6 +16,6 @@ public class Route {
     private TransferType transferType;
     private String from;
     private String to;
-    private Date departTime;
-    private Date arrivalTime;
+    private LocalDateTime departTime;
+    private LocalDateTime arrivalTime;
 }

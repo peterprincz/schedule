@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class BusRouteScrapingServiceTests {
 
     @Test
     void busScrapeTest() {
-        Date now = TimeUtils.getCurrentETCTime();
+        LocalDateTime now = TimeUtils.getCurrentETCTime();
         List<Route> routes = scrapingService.getRoutes(now, BusStation.ALTANYI_SZOLOK, BusStation.AUTOBUSZ_ALLOMAS);
         Assert.notEmpty(routes, "should have routes");
     }

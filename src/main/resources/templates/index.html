@@ -17,9 +17,9 @@
     <div class="row">
         <div class="col-12">
             <p class="cache-time"
-               th:text="'Rendszer idő: ' + ${#dates.format(systemTime, 'MM.DD HH:mm')}"></p>
+               th:text="'Rendszer idő: ' + ${#temporals.format(systemTime, 'MM.DD HH:mm')}"></p>
             <p class="cache-time"
-               th:text="'Utolsó frissités: ' + ${#dates.format(lastCacheTime, 'MM.DD HH:mm')}"></p>
+               th:text="'Utolsó frissités: ' + ${#temporals.format(lastCacheTime, 'MM.DD HH:mm')}"></p>
         </div>
     </div>
 
@@ -30,12 +30,12 @@
             <a class="btn btn-primary dropdown-button" data-bs-toggle="collapse" href="#toDeakvar" role="button"
                aria-expanded="false"
                aria-controls="collapseExample">
-                Busz Város -> Deákvár
+                Busz város -> Deákvár
             </a>
 
             <div class="collapse" id="toDeakvar">
                 <div class="card card-body">
-                    <div th:replace="~{fragments::table(${busRoutesToCity}, ${systemTime})}"></div>
+                    <div th:replace="~{fragments::table(${busRoutesFromCity}, ${systemTime})}"></div>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
             <a class="btn btn-primary dropdown-button" data-bs-toggle="collapse" href="#toCity" role="button"
                aria-expanded="false"
                aria-controls="collapseExample">
-                Busz Deákvár -> Vác
+                Busz Deákvár -> Város
             </a>
 
             <div class="collapse" id="toCity">
