@@ -25,7 +25,7 @@ public class RouteService {
     private final CollectorService<BusStation> busRouteCollectorService;
     private final CollectorService<TrainStation> trainRouteCollectorService;
 
-    @Cacheable(value = "externalData")
+    @Cacheable(value = "externalData", key = "{#fromList, #to}")
     public List<Route> listRoutes(LocalDateTime day, List<BusStation> fromList, BusStation to) {
         return fromList.stream().map(from -> busRouteCollectorService.getRoutes(day, from, to))
                 .flatMap(Collection::stream)
@@ -33,7 +33,7 @@ public class RouteService {
                 .toList();
     }
 
-    @Cacheable(value = "externalData")
+    @Cacheable(value = "externalData", key = "{#from, #toList}")
     public List<Route> listRoutes(LocalDateTime day, BusStation from, List<BusStation> toList) {
         return toList.stream().map(to -> busRouteCollectorService.getRoutes(day, from, to))
                 .flatMap(Collection::stream)
@@ -41,7 +41,7 @@ public class RouteService {
                 .toList();
     }
 
-    @Cacheable(value = "externalData")
+    @Cacheable(value = "externalData", key = "{#from, #to}")
     public List<Route> listRoutes(LocalDateTime day, TrainStation from, TrainStation to) {
         return trainRouteCollectorService.getRoutes(day, from, to)
                 .stream()
