@@ -40,11 +40,14 @@ public class BusCollectorService implements CollectorService<BusStation> {
             throw new RuntimeException("Error while fetching bus routes. status: " + response.getStatusCode());
         }
         List<Route> result = response.getBody().getResults().getMatches().values()
-                .stream().map(match -> new Route(TransferType.BUS,
+                .stream()
+                .filter(match -> match.getNumberOfChanges() == 0)
+                .map(match -> new Route(TransferType.BUS,
                         match.getDepartureStation(),
                         match.getArrivalStation(),
-                        timeService.timeStringToDate(day, match.getStartTime()),
-                        timeService.timeStringToDate(day, match.getArrivalTime())
+                        timeService.timeStringToDate(day, match.getDepartTime()),
+                        timeService.timeStringToDate(day, match.getArrivalTime()),
+                        match.getTravelTime()
                 ))
                 .toList();
         LOG.info("Successfully received routes for day: {}, from: {}, to: {} ({}) ", day, from, to, result.size());

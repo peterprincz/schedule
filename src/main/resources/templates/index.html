@@ -17,9 +17,9 @@
     <div class="row">
         <div class="col-12">
             <p class="cache-time"
-               th:text="'Rendszer idő: ' + ${#temporals.format(systemTime, 'MM.DD HH:mm')}"></p>
+               th:text="'Rendszer idő: ' + ${#temporals.format(systemTime, 'HH:mm')}"></p>
             <p class="cache-time"
-               th:text="'Utolsó frissités: ' + ${#temporals.format(lastCacheTime, 'MM.DD HH:mm')}"></p>
+               th:text="'Utolsó frissités: ' + ${#temporals.format(lastCacheTime, 'HH:mm')}"></p>
         </div>
     </div>
 

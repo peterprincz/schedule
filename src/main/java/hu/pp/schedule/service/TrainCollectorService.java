@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
@@ -35,11 +36,13 @@ public class TrainCollectorService implements CollectorService<TrainStation> {
         }
         List<Route> result = response.getBody().getTimetable()
                 .stream()
+                .filter(train -> !StringUtils.hasText(train.getChange()))
                 .map(train -> new Route(TransferType.TRAIN,
                         train.getDetails().get(0).getFrom(),
                         train.getDetails().get(1).getFrom(),
                         timeService.timeStringToDate(day, train.getStartTime()),
-                        timeService.timeStringToDate(day, train.getDestinationTime())
+                        timeService.timeStringToDate(day, train.getDestinationTime()),
+                        train.getDistance()
                 ))
                 .toList();
         LOG.info("Successfully received routes for day: {}, from: {}, to: {} ({}) ", day, from, to, result.size());

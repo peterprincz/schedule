@@ -10,10 +10,12 @@ public class BusRouteResposponseMatches {
     @JsonProperty("arrivalStation")
     private String arrivalStation;
     @JsonProperty("indulasi_ido")
-    private String startTime;
+    private String departTime;
     @JsonProperty("erkezesi_ido")
     private String arrivalTime;
     @JsonProperty("osszido")
-    private String sumTime;
+    private String travelTime;
+    @JsonProperty("atszallasok_szama")
+    private Integer numberOfChanges;
 
 }

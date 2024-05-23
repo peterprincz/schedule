@@ -15,4 +15,5 @@ public class Route {
     private String to;
     private LocalDateTime departTime;
     private LocalDateTime arrivalTime;
+    private String travelTime;
 }
